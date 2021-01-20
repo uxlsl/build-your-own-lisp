@@ -1,25 +1,32 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-static char input[2048];
+#include <editline/readline.h>
+#include <editline/history.h>
 
-int main(int argc, char **argv)
-{
 
-    puts("Lispy Version 0.0.0.1");
-    puts("Prest ctrl+c to Exit\n");
+int main(int argc, char** argv) {
 
-    while (1)
-    {
+  /* Print Version and Exit Information */
+  puts("Lispy Version 0.0.0.0.1");
+  puts("Press Ctrl+c to Exit\n");
 
-        /* Output our prompt */
-        fputs("lispy> ", stdout);
+  /* In a never ending loop */
+  while (1) {
 
-        /* Read a line of user input of maximum size 2048 */
-        fgets(input, 2048, stdin);
+    /* Output our prompt and get input */
+    char* input = readline("lispy> ");
 
-        /* Echo input back to user */
-        printf("No you're a %s", input);
-    }
+    /* Add input to history */
+    add_history(input);
 
-    return 0;
+    /* Echo input back to user */
+    printf("No you're a %s\n", input);
+
+    /* Free retrieved input */
+    free(input);
+
+  }
+
+  return 0;
 }
